@@ -1,0 +1,2 @@
+# rjdoutliers
+Fast outliers detection
