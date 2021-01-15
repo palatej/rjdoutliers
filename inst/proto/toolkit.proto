@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package jd3;
+
+option java_package = "demetra.toolkit.io.protobuf";
+option java_outer_classname = "ToolkitProtos";
+
+enum SelectionType {
+    SPAN_UNSPECIFIED=0;
+	SPAN_ALL=1;
+	SPAN_FROM=2;
+	SPAN_TO=3;
+	SPAN_BETWEEN=4;
+	SPAN_LAST=5;
+	SPAN_FIRST=6;
+	SPAN_EXCLUDING=7;
+}
+
+
+message TimeSelector{
+	SelectionType type = 1;
+	int32 n0 = 2;
+	int32 n1 = 3;
+	string d0 = 4;
+	string d1 = 5;
+}
+
+enum ParameterType{
+	PARAMETER_UNSPECIFIED = 0;
+	PARAMETER_FIXED = 1;
+	PARAMETER_INITIAL = 2;
+	PARAMETER_ESTIMATED = 3;
+}
+
+message Parameter{
+	double value = 1;
+	ParameterType type = 2;
+}
+
+message TsData{
+	string name = 1;
+	int32 period = 2;
+	int32 start_year = 3;
+	int32 start_period = 4;
+	repeated double values = 5;
+}
+
+message Matrix{
+	string name = 1;
+	int32 nrows = 2;
+	int32 ncols = 3;
+	repeated double values = 4;
+}
+
+message StatisticalTest{
+	double value = 1;
+	double pvalue = 2;
+	string description = 3;
+}
+
+message ParameterEstimation{
+	string name = 1;
+	double value = 2;
+	double stde = 3;
+	double pvalue = 4;
+}
+
+
+message LikelihoodStatistics{
+	int32 nobs = 1;
+	int32 neffectiveobs = 2;
+	int32 nparams = 3;
+	int32 degrees_of_freedom = 4;
+	double log_likelihood = 5;
+	double adjusted_log_likelihood = 6;
+	double aic = 7;
+	double aicc = 8;
+	double bic = 9;
+	double bicc = 10;
+	double bic2 = 11;
+	double hannan_quinn = 12;
+	double ssq = 13;
+	
+}

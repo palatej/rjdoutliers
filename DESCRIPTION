@@ -1,0 +1,31 @@
+Package: rjdoutliers
+Type: Package
+Title: Outliers detection with JD+ 
+Version: 0.2.4
+Authors@R: as.person(c(
+    "Jean Palate <jean.palate@nbb.be> [aut,cre]"
+      ))
+Description: Time series outliers detection
+Depends:
+    R (>= 3.1.1)
+Imports:
+    rJava (>= 0.9-8),
+   methods
+License: EUPL
+LazyData: TRUE
+Collate:
+    'jd3_ts.R'
+    'zzz.R'
+    'jd3_rslts.R'
+    'jd3_regarima.R'
+    'jd3_seasonalbreaks.R'
+    'jd3_sts.R'
+    'jd3_stsoutliers.R'
+    'util.R'
+    'jd3_tramo.R'
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1
+Encoding: UTF-8
