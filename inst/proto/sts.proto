@@ -1,0 +1,32 @@
+syntax = "proto3";
+import public "toolkit.proto";
+
+package sts;
+option java_package = "demetra.sts.io.protobuf";
+option java_outer_classname = "StsProtos";
+
+enum SeasonalModel{
+	SEAS_NONE = 0;
+	SEAS_DUMMY = 1;
+	SEAS_TRIGONOMETRIC = 2;
+	SEAS_HARRISONSTEVENS = 3;
+	SEAS_CRUDE = 4;
+}
+
+message BasicStructuralModel{
+	int32 period = 1;
+	double nvar = 2;
+	bool level = 3;
+	double lvar = 4;
+	bool slope = 5;
+	double svar = 6;
+	bool cycle = 7;
+	double cycle_period = 8;
+	double cycle_factor = 9;
+	double cvar = 10;
+	SeasonalModel seasonal_model = 11;
+	double seasvar = 12;
+	
+	jd3.Matrix covariance = 13;
+}
+

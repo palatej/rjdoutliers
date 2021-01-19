@@ -18,8 +18,8 @@ message RegArimaSolution{
 	repeated double arima_initial = 2;
 	repeated double arima_final = 3;
 	
-	jd3.LikelihoodStatistics initial_likelihood = 4;
-	jd3.LikelihoodStatistics final_likelihood = 5;
+	jd3.LikelihoodStatistics likelihood_initial = 4;
+	jd3.LikelihoodStatistics likelihood_final = 5;
 	
 	repeated Outlier outliers = 6;
 	

@@ -80,5 +80,12 @@ message LikelihoodStatistics{
 	double bic2 = 11;
 	double hannan_quinn = 12;
 	double ssq = 13;
-	
+}
+
+message ArimaModel{
+	string name = 1;
+	double innovation_variance = 2;
+	repeated double ar = 3;
+	repeated double delta = 4;
+	repeated double ma = 5;
 }

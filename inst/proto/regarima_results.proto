@@ -1,0 +1,72 @@
+syntax = "proto3";
+import public "toolkit.proto";
+import public "regarima.proto";
+
+package regarima;
+option java_package = "demetra.regarima.io.protobuf";
+option java_outer_classname = "RegArimaResultsProtos";
+
+message Sarima{
+	int32 period=1;
+	int32 p = 2;
+	int32 d = 3;
+	int32 q = 4;
+	int32 bp = 5;
+	int32 bd = 6;
+	int32 bq = 7;
+	/* phi, bphi, theta, btheta; true signs*/	
+	repeated double parameters = 8;
+	jd3.Matrix covariance = 9;
+}
+
+enum VariableType{
+	VAR_UNSPECIFIED = 0;
+	VAR_MEAN = 1;
+	VAR_TD = 10;
+	VAR_LP = 11;
+	VAR_EASTER = 12;
+	VAR_AO = 20;
+	VAR_LS = 21;
+	VAR_TC = 22;
+	VAR_SO = 23;
+	VAR_OUTLIER = 29;
+	VAR_IV = 30;
+	VAR_RAMP = 40;	
+}
+
+message RegressionVariable{
+	string name = 1;
+	VariableType var_type = 2;
+	map<string, string> metadata = 3;
+	double coefficient = 4; 
+	double stde = 5;
+	double pvalue = 6;
+}
+
+message OutlierEstimation{
+	string code = 1;
+	int32 position = 2;
+	bool prespecified = 3;
+	double coefficient = 10;
+	double stde = 11;
+}
+
+message MissingEstimation{
+	int32 position = 1;
+	double value = 10;
+	double stde = 11;
+}
+
+
+message RegArimaEstimation{
+
+	Transformation transformation = 1;
+	LengthOfPeriod preadjustment = 2;
+	jd3.LikelihoodStatistics likelihood = 4;
+	Sarima sarima = 5;
+	repeated RegressionVariable variables = 6;
+	repeated double coefficients = 7;
+	jd3.Matrix covariance = 8;
+	repeated MissingEstimation missings= 10;
+	
+}
