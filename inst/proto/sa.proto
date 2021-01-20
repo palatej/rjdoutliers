@@ -26,7 +26,6 @@ enum DecompositionMode {
   PSEUDOADDITIVE = 3;
 }
 
-
 message Component{
 	ComponentType type = 1;
 	jd3.TsData data = 2;

@@ -14,19 +14,18 @@ message Outlier{
 }
 
 message RegArimaSolution{
-	repeated int32 arima_orders = 1;
-	repeated double arima_initial = 2;
-	repeated double arima_final = 3;
+	repeated double arima_initial = 1;
+	repeated double arima_final = 2;
 	
-	jd3.LikelihoodStatistics likelihood_initial = 4;
-	jd3.LikelihoodStatistics likelihood_final = 5;
+	jd3.LikelihoodStatistics likelihood_initial = 3;
+	jd3.LikelihoodStatistics likelihood_final = 4;
 	
-	repeated Outlier outliers = 6;
+	repeated Outlier outliers = 5;
 	
-	repeated double coefficients = 7;
-	jd3.Matrix covariance = 8;
+	repeated double coefficients = 6;
+	jd3.Matrix covariance = 7;
 	
-	jd3.Matrix regressors = 9;
-	repeated double residuals = 12;
+	jd3.Matrix regressors = 8;
+	repeated double residuals = 9;
 	
 }

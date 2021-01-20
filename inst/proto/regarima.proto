@@ -1,0 +1,67 @@
+syntax = "proto3";
+import public "toolkit.proto";
+
+package regarima;
+
+option java_package = "demetra.regarima.io.protobuf";
+option java_outer_classname = "RegArimaProtos";
+
+enum Transformation {
+	FN_UNSPECIFIED = 0;
+    FN_LEVEL = 1;
+	FN_LOG = 2;
+    FN_AUTO = 10;
+}
+
+enum LengthOfPeriod{
+	LP_UNSPECIFIED = 0;
+	LP_NONE = 1;
+	LP_LEAPYEAR = 2;
+	LP_LENGTHOFPERIOD = 3;
+}
+
+enum TradingDays{
+	TD_UNSPECIFIED = 0;
+	TD_NONE = 1;
+	TD_WEEK = 2;
+	TD_3 = 3;
+	TD_FULL = 6;
+}
+
+message SarimaSpec{
+	repeated jd3.Parameter phi = 1;
+	int32 d = 2;
+	repeated jd3.Parameter theta = 3;
+	repeated jd3.Parameter bphi = 4;
+	int32 bd = 5;
+	repeated jd3.Parameter btheta = 6;
+}
+
+message Variable{
+    string name = 1;
+    int32 first_lag = 2;
+	int32 last_lag = 3;
+	map<string, string> metadata = 4;
+}
+
+message Ramp{
+	string start = 1;
+	string end = 2;
+}
+
+message Outlier{
+	string code = 1;
+	string position = 2;
+}
+
+message InterventionVariable{
+	message Sequence{
+		string start = 1;
+		string end = 2;
+	}
+    
+	repeated Sequence sequences = 1;
+	double delta = 2;
+	double seasonal_delta = 3;
+}
+

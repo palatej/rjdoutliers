@@ -89,3 +89,4 @@ message ArimaModel{
 	repeated double delta = 4;
 	repeated double ma = 5;
 }
+

@@ -30,3 +30,41 @@ p2r_outliers<-function(p){
   
   return (data.frame(code=codes, pos=1+pos, val=vals, err=err,tstat=tstat))
 }
+
+p2r_x<-function(p, cov){
+  c<-p$coefficients
+  nc=length(c)
+  if (nc == 0)
+    return (NULL)
+  no<-length(p$outliers)
+  if (nc == no)
+    return (NULL);
+  nx<-nc-no
+  idx<-1:nx
+  vars<-paste("x", idx, sep="-")
+  vals<-p$coefficients[idx]
+  err<-sqrt(diag(cov)[idx])
+  tstat<-vals/err 
+  
+  return (data.frame(var=vars, val=vals, err=err,tstat=tstat))
+}
+
+
+#' Title
+#'
+#' @param clustering 
+#' @param freq 
+#' @param startyear 
+#' @param startperiod 
+#' @param len 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+tradingdays<-function(clustering, freq, startyear, startperiod=1, len, contrasts=T){
+  jdom<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsDomain;", "of", as.integer(freq), 
+               as.integer(startyear), as.integer(startperiod), as.integer(len))
+  jtd<-.jcall("demetra/calendar/r/GenericCalendars", "Ldemetra/math/matrices/MatrixType;", "td", jdom, as.integer(clustering), as.logical(contrasts))
+  return (matrix_jd2r(jtd))
+}

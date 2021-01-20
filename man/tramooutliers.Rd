@@ -20,29 +20,29 @@ tramooutliers(
 )
 }
 \arguments{
-\item{y}{}
+\item{y}{Series}
 
-\item{order}{}
+\item{order}{Regular orders (p,d,q)}
 
-\item{seasonal}{}
+\item{seasonal}{Seasonal orders (bp, bd, bq)}
 
-\item{mean}{}
+\item{mean}{Mean correction}
 
-\item{X}{}
+\item{X}{Regression variables}
 
-\item{X.td}{}
+\item{X.td}{Trading days ( groups of days: for instance X.td=c(1,1,1,1,1,2,0))}
 
-\item{ao}{}
+\item{ao}{Detection of additive outliers}
 
-\item{ls}{}
+\item{ls}{Detection of level shifts}
 
-\item{tc}{}
+\item{tc}{Detection of transitory changes}
 
-\item{so}{}
+\item{so}{Detection of seasonal outliers}
 
-\item{cv}{}
+\item{cv}{Critical value}
 
-\item{ml}{}
+\item{ml}{Use of maximum likelihood (otherwise approximation by means of Hannan-Rissanen)}
 }
 \value{
 

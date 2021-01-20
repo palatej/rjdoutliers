@@ -1,7 +1,7 @@
 Package: rjdoutliers
 Type: Package
 Title: Outliers detection with JD+ 
-Version: 0.2.4
+Version: 0.3.0
 Authors@R: as.person(c(
     "Jean Palate <jean.palate@nbb.be> [aut,cre]"
       ))
@@ -20,8 +20,8 @@ Collate:
     'jd3_regarima.R'
     'jd3_seasonalbreaks.R'
     'jd3_sts.R'
-    'jd3_stsoutliers.R'
     'util.R'
+    'jd3_stsoutliers.R'
     'jd3_tramo.R'
 Suggests:
     knitr,
