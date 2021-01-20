@@ -4,17 +4,17 @@ NULL
 
 #' Title
 #'
-#' @param y 
-#' @param order 
-#' @param seasonal 
-#' @param mean 
-#' @param X 
-#' @param X.td 
-#' @param ao 
-#' @param ls 
-#' @param so 
-#' @param tc 
-#' @param cv 
+#' @param y Series
+#' @param order Regular orders (p,d,q)
+#' @param seasonal Seasonal orders (bp, bd, bq)
+#' @param mean Mean correction
+#' @param X Regression variables
+#' @param X.td Trading days ( groups of days: for instance X.td=c(1,1,1,1,1,2,0))
+#' @param ao Detection of additive outliers
+#' @param ls Detection of level shifts
+#' @param so Detection of seasonal outliers
+#' @param tc Detection of transitory changes
+#' @param cv Critical value 
 #'
 #' @return
 #' @export
@@ -30,25 +30,25 @@ regarimaoutliers<-function(y, order=c(0L,1L,1L), seasonal=c(0L,1L,1L), mean=F,
     td<-tradingdays(X.td, frequency(y), sy[1], sy[2], length(y))
     X<-cbind(X, td)
   }
-  
-  
   jregarima<-.jcall("demetra/x13/r/RegArimaOutliersDetection", "Ldemetra/x13/r/RegArimaOutliersDetection$Results;", "process", ts_r2jd(y), 
                  as.integer(order), as.integer(seasonal), mean, matrix_r2jd(X),
                  ao, ls, tc, so, cv)
-  model<-list(
-    y=as.numeric(y),
-    variables=proc_vector(jregarima, "variables"),
-    X=proc_matrix(jregarima, "regressors"),
-    b=proc_vector(jregarima, "b"),
-    bcov=proc_matrix(jregarima, "bvar"),
-    linearized=proc_vector(jregarima, "linearized")
-  )
   
-  ll0<-proc_likelihood(jregarima, "initiallikelihood.")
-  ll1<-proc_likelihood(jregarima, "finallikelihood.")
+  q<-.jcall(jregarima, "[B", "buffer")
+  p<-RProtoBuf::read(outliers.RegArimaSolution, q)
   
-  return(structure(list(
-    model=model,
-    likelihood=list(initial=ll0, final=ll1)),
-    class="JDSTS"))
+  cov<-p2r_matrix(p$covariance) 
+  
+  return (structure(list(
+    outliers=p2r_outliers(p$outliers),
+    variables=p2r_x(p, cov),
+    initialarima=p$arima_initial,
+    finalarima=p$arima_final,
+    initiallikelihood=p2r_likelihood(p$likelihood_initial),
+    finallikelihood=p2r_likelihood(p$likelihood_final),
+    coefficients=p$coefficients,
+    covariance=p2r_matrix(p$covariance) 
+  ), class = "JD3REGARIMAOUTLIERS"))
+
 }
+
