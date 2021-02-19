@@ -5,14 +5,14 @@ NULL
 #' Title
 #'
 #' @param y 
-#' @param level -1 = no level, 0 = fixed level, 1 = sotchastic level
+#' @param level -1 = no level, 0 = fixed level, 1 = stochastic level
 #' @param slope 
 #' @param noise 
 #' @param seasonal Seasonal model
 #' @param X Regression variables (same length as y) or NULL
 #' @param X.td Specification for trading days clustering. 
-#' Contains thr group id fo Mondays... Sundays 
-#' (for instance (1,1,1,1,1,0,0) for week days or (1,1,1,1,1,2,0) for week.saturdays/Sundays variables).
+#' Contains the group id for Mondays... Sundays 
+#' (for instance (1,1,1,1,1,0,0) for week days or (1,1,1,1,1,2,0) for week/Saturdays/Sundays variables).
 #' Contrasts are used. Can be NULL 
 #'
 #' @return
