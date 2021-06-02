@@ -26,20 +26,22 @@ enum DecompositionMode {
   PSEUDOADDITIVE = 3;
 }
 
-
 message Component{
-	ComponentType type = 1;
-	jd3.TsData data = 2;
-	jd3.TsData stde = 3;
-	int32 nbcasts = 6; 
-	int32 nfcasts = 7;
+	jd3.TsData data = 1;
+	/* The length of stde should be the same as the length of data */
+	repeated double stde = 2;
+	int32 nbcasts = 3; 
+	int32 nfcasts = 4;
 }
 
 message SaDecomposition{
 	DecompositionMode mode = 1;
-	repeated Component components = 2;
+	Component series = 2;
+	Component seasonally_adjusted = 3;
+	Component trend = 4;
+	Component seasonal = 5;
+	Component irregular = 6;
 }
-
 
 enum BenchmarkingTarget {
 	BENCH_TARGET_UNSPECIFIED = 0;
@@ -61,4 +63,23 @@ message BenchmarkingSpec{
 	double rho = 4;
 	BenchmarkingBias bias = 5;
 	bool forecast = 6;
+}
+
+message VarianceDecomposition{
+	double cycle = 1;
+	double seasonal = 2;
+	double irregular = 3;
+	double calendar = 4;
+	double others = 5;
+	double total = 6;
+}
+
+message Diagnostics{
+	VarianceDecomposition variance_decomposition = 1;
+	jd3.StatisticalTest seasonal_ftest_on_irregular = 2;
+	jd3.StatisticalTest seasonal_ftest_on_sa = 3;
+	jd3.StatisticalTest seasonal_qtest_on_irregular = 4;
+	jd3.StatisticalTest seasonal_qtest_on_sa = 5;
+	jd3.StatisticalTest td_ftest_on_irregular = 6;
+	jd3.StatisticalTest td_ftest_on_sa = 7;
 }

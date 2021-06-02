@@ -16,7 +16,9 @@ message Sarima{
 	int32 bq = 7;
 	/* phi, bphi, theta, btheta; true signs*/	
 	repeated double parameters = 8;
-	jd3.Matrix covariance = 9;
+	/* optimization results, if any (ML estimation)*/
+	repeated double score = 9;
+	jd3.Matrix covariance = 10;
 }
 
 enum VariableType{
@@ -43,30 +45,34 @@ message RegressionVariable{
 	double pvalue = 6;
 }
 
-message OutlierEstimation{
-	string code = 1;
-	int32 position = 2;
-	bool prespecified = 3;
-	double coefficient = 10;
-	double stde = 11;
-}
-
 message MissingEstimation{
 	int32 position = 1;
 	double value = 10;
 	double stde = 11;
 }
 
+message Diagnostics{
+
+	jd3.NIIDTests residuals_tests = 1;
+
+}
 
 message RegArimaEstimation{
 
-	Transformation transformation = 1;
-	LengthOfPeriod preadjustment = 2;
+	/* Model  y = Xb + u */
+	repeated double y =1;
+	jd3.Matrix x = 2;
+	Sarima sarima = 3;
+	/* Estimation */
 	jd3.LikelihoodStatistics likelihood = 4;
-	Sarima sarima = 5;
-	repeated RegressionVariable variables = 6;
-	repeated double coefficients = 7;
-	jd3.Matrix covariance = 8;
-	repeated MissingEstimation missings= 10;
+	repeated double coefficients = 5;
+	jd3.Matrix covariance = 6;
+	repeated double residuals = 7;
+	/* Description of the model */
+	Transformation transformation = 8;
+	LengthOfPeriod preadjustment = 9;
+	repeated RegressionVariable variables=10;
+	repeated MissingEstimation missings= 11;
 	
+	Diagnostics diagnostics = 12;	
 }

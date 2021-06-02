@@ -16,7 +16,6 @@ enum SelectionType {
 	SPAN_EXCLUDING=7;
 }
 
-
 message TimeSelector{
 	SelectionType type = 1;
 	int32 n0 = 2;
@@ -37,9 +36,16 @@ message Parameter{
 	ParameterType type = 2;
 }
 
+message TsPeriod{
+	int32 annual_frequency = 1;
+	int32 year = 2;
+	int32 pos = 3;
+}
+
+
 message TsData{
 	string name = 1;
-	int32 period = 2;
+	int32 annual_frequency = 2;
 	int32 start_year = 3;
 	int32 start_period = 4;
 	repeated double values = 5;
@@ -50,6 +56,14 @@ message Matrix{
 	int32 nrows = 2;
 	int32 ncols = 3;
 	repeated double values = 4;
+}
+
+message TsMatrix{
+	string name = 1;
+	int32 annual_frequency = 2;
+	int32 start_year = 3;
+	int32 start_period = 4;
+	Matrix values = 5;
 }
 
 message StatisticalTest{
@@ -64,7 +78,6 @@ message ParameterEstimation{
 	double stde = 3;
 	double pvalue = 4;
 }
-
 
 message LikelihoodStatistics{
 	int32 nobs = 1;
@@ -89,3 +102,28 @@ message ArimaModel{
 	repeated double delta = 4;
 	repeated double ma = 5;
 }
+
+message NIIDTests{
+	/* Normality */
+	StatisticalTest mean = 1;
+	StatisticalTest skewness = 2;
+	StatisticalTest kurtosis = 3;
+	StatisticalTest doornik_hansen = 4;
+
+	/* Independence */
+	StatisticalTest ljung_box = 5;
+	StatisticalTest box_pierce = 6;
+	StatisticalTest seasonal_ljung_box = 7;
+	StatisticalTest seasonal_box_pierce = 8;
+	
+	/* Randomness */
+    StatisticalTest runs_number = 9;
+	StatisticalTest runs_length = 10;
+	StatisticalTest up_down_runs_number = 11;
+	StatisticalTest up_down_runs_length = 12;
+	
+	/* Linearity */
+	StatisticalTest ljung_box_on_squares = 13;
+	StatisticalTest box_pierce_on_squares = 14;
+}
+
